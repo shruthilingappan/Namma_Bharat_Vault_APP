@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#176f6b">
+  <title>Namma Bharat Vault – Stay Safe. Even Without Internet.</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="app-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="loginScreen" class="login-screen">
+    <section class="login-card" aria-labelledby="loginTitle">
+      <div class="brand login-brand"><span class="brand-mark" aria-hidden="true">NB</span><span>Namma Bharat Vault</span></div>
+      <p class="login-subtitle" data-i18n="appSubtitle">Offline-First Financial Safety Assistant</p>
+      <h1 id="loginTitle" data-i18n="welcome">Welcome</h1>
+      <p class="login-intro" data-i18n="loginIntro">Enter your mobile number and choose any 4-digit PIN to continue.</p>
+
+      <form id="loginForm" novalidate>
+        <div class="login-field">
+          <label class="field-label" for="loginLanguage" data-i18n="preferredLanguage">Preferred language</label>
+          <select id="loginLanguage" class="language-select">
+            <option value="en">English</option>
+            <option value="ta">தமிழ்</option>
+            <option value="te">తెలుగు</option>
+            <option value="hi">हिन्दी</option>
+            <option value="ml">മലയാളം</option>
+          </select>
+        </div>
+        <div class="login-field">
+          <label class="field-label" for="mobileInput" data-i18n="mobileNumber">Mobile number</label>
+          <input id="mobileInput" name="mobile" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="10" pattern="[6-9][0-9]{9}" placeholder="10-digit mobile number" data-i18n-placeholder="mobilePlaceholder" aria-describedby="mobileError" required>
+          <p id="mobileError" class="field-error" aria-live="polite"></p>
+        </div>
+
+        <div class="login-field">
+          <label class="field-label" for="pinInput" data-i18n="pinLabel">4-digit PIN</label>
+          <div class="pin-control">
+            <input id="pinInput" name="pin" type="password" inputmode="numeric" autocomplete="off" maxlength="4" pattern="[0-9]{4}" placeholder="Enter any 4 digits" data-i18n-placeholder="pinPlaceholder" aria-describedby="pinError" required>
+            <button id="togglePin" class="pin-toggle" type="button" aria-pressed="false" data-i18n="showPin">Show</button>
+          </div>
+          <p id="pinError" class="field-error" aria-live="polite"></p>
+        </div>
+
+        <p id="loginMessage" class="form-message" role="status" aria-live="polite"></p>
+        <button class="btn primary login-submit" type="submit" data-i18n="login">Login</button>
+      </form>
+      <p class="prototype-note" data-i18n="prototypeNote">Prototype login — only your login state is stored locally on this device. Your mobile number and PIN are not saved.</p>
+    </section>
+  </main>
+
+  <div id="appShell" hidden>
+
+  <!-- ===== NAVIGATION ===== -->
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">NB</span><span>Namma Bharat Vault</span></div>
+    <nav aria-label="Main navigation">
+      <button class="nav-btn active" data-page="home" data-i18n="home">Home</button>
+      <button class="nav-btn" data-page="scanner" data-i18n="scanner">Scanner</button>
+      <button class="nav-btn" data-page="guide" data-i18n="safetyGuide">Safety Guide</button>
+      <button id="logoutBtn" class="nav-btn logout-btn" type="button" data-i18n="logout">Logout</button>
+    </nav>
+    <label class="language-switcher"><span data-i18n="language">Language</span>
+      <select id="appLanguageSelect" class="language-select" aria-label="Language">
+        <option value="en">English</option>
+        <option value="ta">தமிழ்</option>
+        <option value="te">తెలుగు</option>
+        <option value="hi">हिन्दी</option>
+        <option value="ml">മലയാളം</option>
+      </select>
+    </label>
+  </header>
+
+  <main>
+    <!-- ===== 1. HOME ===== -->
+    <section id="home" class="page active">
+      <div class="hero">
+        <p class="eyebrow" data-i18n="eyebrow">OFFLINE-FIRST DIGITAL SAFETY</p>
+        <h1>Namma Bharat Vault</h1>
+        <p class="tagline" data-i18n="tagline">Stay Safe. Even Without Internet.</p>
+        <p class="lead" data-i18n="lead">An offline-first safety assistant for rural women and Self-Help Group members. Paste a suspicious SMS and get a risk score, the reasons behind it, and simple advice – in English and Tamil.</p>
+        <button class="btn primary big" data-page="scanner" data-i18n="scanCta">Scan a Message</button>
+        <button id="installBtn" class="btn ghost install-btn" type="button" hidden data-i18n="installApp">📲 Install App</button>
+      </div>
+
+      <div class="cards">
+        <div class="card"><div class="icon" aria-hidden="true">01</div><h3 data-i18n="offlineDetection">Offline Detection</h3>
+          <p data-i18n="offlineDescription">Runs fully in your browser using simple rules. No internet needed after the page loads.</p></div>
+        <div class="card"><div class="icon" aria-hidden="true">02</div><h3 data-i18n="riskExplanation">Risk Explanation</h3>
+          <p data-i18n="riskExplanationDescription">Shows exactly which warning signs were found, so you learn to spot scams yourself.</p></div>
+        <div class="card"><div class="icon" aria-hidden="true">03</div><h3 data-i18n="safetyGuidance">Safety Guidance</h3>
+          <p data-i18n="safetyGuidanceDescription">Safety advice is shown in your preferred language.</p></div>
+      </div>
+
+      <section class="voice-assistant" aria-labelledby="voiceTitle">
+        <div class="voice-heading">
+          <div>
+            <h2 id="voiceTitle" data-voice="title">🎤 Ask Namma Bharat Vault</h2>
+            <p data-voice="subtitle">Speak your question and get simple financial safety guidance.</p>
+          </div>
+          <div class="voice-actions">
+            <button id="voiceStart" class="btn primary voice-mic" type="button" aria-label="Start listening">
+              <span aria-hidden="true">🎤</span><span data-voice="start">Start listening</span>
+            </button>
+            <button id="voiceStop" class="btn ghost" type="button" hidden data-voice="stop">Stop</button>
+          </div>
+        </div>
+        <p id="voiceStatus" class="voice-status" role="status" aria-live="polite"></p>
+        <p id="voiceSupportNote" class="voice-note" data-voice="supportNote">Speech recognition support and offline behavior depend on your browser. You can type a question instead.</p>
+        <label class="field-label" for="voiceQuestion" data-voice="questionLabel">Your question</label>
+        <div class="voice-input-row">
+          <input id="voiceQuestion" type="text" autocomplete="off" data-voice-placeholder="questionPlaceholder" placeholder="For example: What is OTP?">
+          <button id="voiceAsk" class="btn primary" type="button" data-voice="ask">Ask</button>
+        </div>
+        <p id="voiceTranscript" class="voice-transcript" aria-live="polite"></p>
+        <div class="voice-response" aria-live="polite">
+          <div class="voice-response-heading">
+            <h3 data-voice="responseTitle">Safety guidance</h3>
+            <button id="voiceSpeak" class="btn ghost voice-speak" type="button" hidden data-voice="speak">Speak response</button>
+          </div>
+          <p id="voiceResponse" data-voice="initialResponse">Your answer will appear here.</p>
+        </div>
+      </section>
+
+      <!-- Architecture (for presentation) -->
+      <div class="arch">
+        <h2 data-i18n="howItWorks">How it works</h2>
+        <div class="flow">
+          <span data-i18n="userMessage">User Message</span><i>↓</i>
+          <span data-i18n="textAnalysis">Text Analysis</span><i>↓</i>
+          <span data-i18n="localRiskEngine">Local Rule-Based Risk Engine</span><i>↓</i>
+          <span data-i18n="riskScore">Risk Score</span><i>↓</i>
+          <span data-i18n="warningReasons">Warning Reasons</span><i>↓</i>
+          <span data-i18n="safetyGuidance">Safety Guidance</span>
+        </div>
+        <p class="note" data-i18n="limitation">This is a transparent rule-based checker, not an AI. It can miss scams or flag safe messages, so it is a helper, not a guarantee.</p>
+      </div>
+    </section>
+
+    <!-- ===== 2 & 3. SCANNER + RESULT ===== -->
+    <section id="scanner" class="page">
+      <h2 data-i18n="scannerTitle">Message Scanner</h2>
+      <div class="scanner-field">
+        <label class="field-label" for="msgInput" data-i18n="messageToAnalyze">Message to analyze</label>
+        <textarea id="msgInput" rows="7" placeholder="Paste a suspicious message here..." data-i18n-placeholder="messagePlaceholder"></textarea>
+      </div>
+      <div class="scanner-controls">
+        <div class="row">
+          <button id="scanBtn" class="btn primary" data-i18n="scanMessage">Scan message</button>
+          <button id="clearBtn" class="btn ghost" data-i18n="clear">Clear</button>
+        </div>
+        <div class="sample-row">
+          <span class="sample-label" data-i18n="tryExample">Try an example</span>
+          <button id="sampleBtn" class="btn ghost" data-i18n="suspiciousSample">Suspicious sample</button>
+          <button id="safeBtn" class="btn ghost" data-i18n="safeSample">Safe sample</button>
+        </div>
+      </div>
+      <p id="scannerMessage" class="form-message" role="status" aria-live="polite"></p>
+
+      <div id="result" class="result hidden" aria-live="polite">
+        <div class="result-head">
+          <div class="score-box"><span id="scoreNum">0</span><small>/ 100</small></div>
+          <div>
+            <div id="levelBadge" class="badge">LOW</div>
+            <p id="levelText" class="level-text"></p>
+          </div>
+        </div>
+        <div class="meter"><div id="meterFill"></div></div>
+
+        <h3 data-i18n="whyRisky">Why is this risky?</h3>
+        <p class="section-kicker" data-i18n="detectedSigns">Detected warning signs</p>
+        <ul id="reasonList" class="list"></ul>
+
+        <h3 data-i18n="whatToDo">What should you do?</h3>
+        <ul id="adviceList" class="list"></ul>
+
+        <div class="tamil-box">
+          <h3 id="guidanceTitle" data-i18n="guidanceTitle">Safety Guidance</h3>
+          <ul id="tamilList" class="list"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 4. OFFLINE SAFETY GUIDE ===== -->
+    <section id="guide" class="page">
+      <h2 data-i18n="guideTitle">Offline Safety Guide</h2>
+      <div class="rules">
+        <div class="rule"><b data-i18n="ruleOtp">Never share OTP</b><span data-i18n="ruleOtpText">OTP-ஐ யாரிடமும் பகிராதீர்கள்.</span></div>
+        <div class="rule"><b data-i18n="ruleUpi">Never share UPI PIN</b><span data-i18n="ruleUpiText">UPI PIN-ஐ யாரிடமும் சொல்லாதீர்கள்.</span></div>
+        <div class="rule"><b data-i18n="ruleLinks">Do not click suspicious links</b><span data-i18n="ruleLinksText">சந்தேகமான இணைப்புகளை (link) கிளிக் செய்யாதீர்கள்.</span></div>
+        <div class="rule"><b data-i18n="ruleKyc">Verify KYC through official sources</b><span data-i18n="ruleKycText">KYC-ஐ வங்கிக் கிளை அல்லது அதிகாரப்பூர்வ செயலியில் சரிபார்க்கவும்.</span></div>
+        <div class="rule"><b data-i18n="ruleMoney">Do not send money because of urgent messages</b><span data-i18n="ruleMoneyText">அவசர செய்திகளுக்காக பணம் அனுப்பாதீர்கள்.</span></div>
+      </div>
+      <p class="note"><span data-i18n="helplineAdvice">If you lose money to a scam, call the cyber-crime helpline quickly and tell your bank.</span> <b>1930</b></p>
+    </section>
+  </main>
+
+  <footer data-i18n="footer">Namma Bharat Vault · Hackathon prototype · Works offline after first load</footer>
+  </div>
+  <script src="languages.js"></script>
+  <script src="voice-content.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

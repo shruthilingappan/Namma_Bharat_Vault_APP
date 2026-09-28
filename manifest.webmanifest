@@ -1,0 +1,18 @@
+{
+  "name": "Namma Bharat Vault — Offline-First Financial Safety Assistant",
+  "short_name": "Bharat Vault",
+  "description": "A local, rule-based financial safety assistant with offline access.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f2f6f5",
+  "theme_color": "#176f6b",
+  "icons": [
+    {
+      "src": "app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
